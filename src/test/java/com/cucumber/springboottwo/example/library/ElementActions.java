@@ -16,10 +16,12 @@ public class ElementActions {
     public void launch(String url) {
         Preconditions.checkNotNull(url, String.format("URL: %s must not be empty", url));
         driverManager.getWebDriver().get(url);
+        ReportLogger.INSTANCE.logMessage("Launched URL: " + url);
     }
 
     public WebElement getElementFromObjectRepository(String locator) {
         Preconditions.checkNotNull(locator, String.format("Locator: %s must not be empty", locator));
+        ReportLogger.INSTANCE.logMessage("Fetching element from Object Repo: " + locator);
         return driverManager.getWebDriverWait().until(
                 ExpectedConditions.presenceOfElementLocated(
                         getByUsingSelector(locator)
@@ -30,12 +32,14 @@ public class ElementActions {
     public void enterTextIntoInputTextBox(String locator, String inputText) {
         WebElement element = getElementFromObjectRepository(locator);
         element.sendKeys(inputText);
+        ReportLogger.INSTANCE.logMessage("Entered text: " + inputText + " , into input field locator: " + locator);
     }
 
     public void clickButton(String locator) {
         WebElement element = getElementFromObjectRepository(locator);
         driverManager.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(element));
         element.click();
+        ReportLogger.INSTANCE.logMessage("Clicked on button: " + locator);
     }
 
     public By getByUsingSelector(String elementSelector) {
@@ -53,6 +57,7 @@ public class ElementActions {
 
     public String getElementText(String locator) {
         WebElement element  = getElementFromObjectRepository(locator);
+        ReportLogger.INSTANCE.logMessage("Fetching element: " + locator + ", text is: " + element.getText());
         return element.getText();
     }
 

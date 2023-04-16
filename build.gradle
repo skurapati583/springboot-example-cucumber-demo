@@ -38,6 +38,7 @@ ext {
     junitPlatformVersion = "1.9.2"
     wdmVersion = "5.3.2"
     cucumberVersion = "7.11.2"
+    cluecucumberVersion = "3.2.1"
 }
 
 dependencies {
@@ -61,8 +62,28 @@ dependencies {
     testImplementation "io.cucumber:cucumber-java8:$cucumberVersion"
     testImplementation "io.cucumber:cucumber-junit-platform-engine:$cucumberVersion"
     testImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
+
+    testImplementation "com.trivago.rta:cluecumber-core:$cluecucumberVersion"
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        maxParallelForks 4
+    }
+
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
 }
+
+task generateClueCumberReports {
+    doLast {
+        javaexec {
+            mainClass = "com.cucumber.springboottwo.example.reports.ClucumberReportGeneration"
+            classpath = sourceSets.test.runtimeClasspath
+            args = ["build/cucumber-report", "build/HTMLReport"]
+        }
+    }
+}
+

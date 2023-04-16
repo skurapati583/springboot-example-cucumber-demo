@@ -4,11 +4,13 @@ import com.cucumber.springboottwo.example.library.ElementActions;
 import com.cucumber.springboottwo.example.model.Locators;
 import com.google.common.base.CaseFormat;
 import com.google.common.base.CharMatcher;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class InstantDemoRequestForm {
 
     @Autowired
@@ -17,11 +19,14 @@ public class InstantDemoRequestForm {
     @Autowired
     Locators locators;
 
+    String threadName = Thread.currentThread().getName();
+
     @Value("${php_travels.url}")
     private String phpTravelsURL;
 
     public void launchPHPTravelsApp() {
         elementActions.launch(phpTravelsURL);
+        log.info("{}: Launched URL: {}", threadName, phpTravelsURL);
     }
 
     public boolean isInstantDemoRequestFormVisible() {
@@ -38,6 +43,7 @@ public class InstantDemoRequestForm {
                 locators.getInstantDemoRequestFormGenericInputField().replaceFirst(
                         "%s", output),
                 fieldValue);
+        log.info("{}: Entered field {}: {}", threadName, fieldName, fieldValue);
     }
 
     public void enterCaptchaNumber() {
@@ -47,12 +53,15 @@ public class InstantDemoRequestForm {
         int secondNumber = Integer.parseInt(
                 elementActions.getElementText(
                         locators.getInstantDemoRequestFormCaptchaSecondNumber()));
+        int result = firstNumber + secondNumber;
         elementActions.enterTextIntoInputTextBox(locators.getInstantDemoRequestFormCaptchaInputField(),
-                String.valueOf(firstNumber + secondNumber));
+                String.valueOf(result));
+        log.info("{}: Entering captcha number {} + {} = {}", threadName, firstNumber, secondNumber, result);
     }
 
     public void submitForm() {
         elementActions.clickButton(locators.getInstantDemoRequestFormSubmitButton());
+        log.info("{}: Submit button clicked.", threadName);
     }
 
     public boolean isSubmissionSuccessful() {
@@ -65,12 +74,20 @@ public class InstantDemoRequestForm {
            locators.getThankYouPageSuccessMessage(), "Thank you!"
         ) ;
 
-
         boolean successMessageDescriptionCheck = elementActions.isTextPresentInsideElement(
                 locators.getThankYouPageSuccessDescription(),
                 "We have sent your demo credentials to your email please check your email to test demo website. " +
                         "if message not found inbox please check spam folder"
-        ) ;
+        );
+
+        if(successCheck) log.info("{}: Form submitted successfully.", threadName);
+        else log.error("{}: Form not submitted successfully.", threadName);
+
+        if(successMessageCheck) log.info("{}: Successful submission message displayed.", threadName);
+        else log.error("{}: Successful submission message is not displayed.", threadName);
+
+        if(successMessageDescriptionCheck) log.info("{}: Successful submission message description displayed.", threadName);
+        else log.error("{}: Successful submission message is description displayed.", threadName);
 
         return successCheck && successMessageCheck && successMessageDescriptionCheck;
     }

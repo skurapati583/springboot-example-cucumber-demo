@@ -92,4 +92,11 @@ public class InstantDemoRequestForm {
         return successCheck && successMessageCheck && successMessageDescriptionCheck;
     }
 
+    public void verifyAlertMessage(String message) {
+        elementActions.isAlertRaisedWithTextMessage(message);
+    }
+
+    public void closeAlert() {
+        elementActions.closeAlert();
+    }
 }

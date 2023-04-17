@@ -21,6 +21,7 @@ public class ClucumberReportGeneration {
             new CluecumberCore.Builder()
                     .setCustomPageTitle("My Spring Boot Cucumber Reports")
                     .setExpandAttachments(true)
+                    .setExpandBeforeAfterHooks(true)
                     .build().generateReports(jsonDirectory, reportDirectory);
         } catch (CluecumberException e) {
             log.error("Unable to generate cluecumber report", e.fillInStackTrace());

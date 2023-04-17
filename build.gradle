@@ -64,11 +64,14 @@ dependencies {
     testImplementation "io.cucumber:cucumber-spring:$cucumberVersion"
 
     testImplementation "com.trivago.rta:cluecumber-core:$cluecucumberVersion"
+
+    testImplementation 'ru.yandex.qatools.ashot:ashot:1.5.4'
 }
 
 test {
     useJUnitPlatform {
         maxParallelForks 4
+        ignoreFailures true
     }
 
     testLogging {

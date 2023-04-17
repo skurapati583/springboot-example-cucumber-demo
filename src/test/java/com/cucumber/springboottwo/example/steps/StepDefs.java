@@ -42,5 +42,13 @@ public class StepDefs implements En {
             assert instantDemoRequestForm.isSubmissionSuccessful();
         });
 
+        Then("User sees an alert with message {string}", (String alertMessage) -> {
+            instantDemoRequestForm.verifyAlertMessage(alertMessage);
+        });
+
+        When("User closes the alert", () -> {
+            instantDemoRequestForm.closeAlert();
+        });
+
     }
 }

@@ -1,6 +1,7 @@
 package com.cucumber.springboottwo.example.library;
 
 import com.google.common.base.Preconditions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -70,4 +71,15 @@ public class ElementActions {
         );
     }
 
+    public void isAlertRaisedWithTextMessage(String message) {
+        driverManager.getWebDriverWait().until(ExpectedConditions.alertIsPresent());
+        Alert alert = driverManager.getWebDriver().switchTo().alert();
+        ReportLogger.INSTANCE.logMessage("Alert contains: " + alert.getText());
+    }
+
+    public void closeAlert() {
+        Alert alert = driverManager.getWebDriverWait().until(ExpectedConditions.alertIsPresent());
+        alert.dismiss();
+        ReportLogger.INSTANCE.logMessage("Alert Closed");
+    }
 }

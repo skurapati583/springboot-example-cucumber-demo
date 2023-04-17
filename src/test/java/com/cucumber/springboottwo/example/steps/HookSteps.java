@@ -18,6 +18,7 @@ public class HookSteps implements En {
     public HookSteps() {
         Before(() -> {
             driverManager.initializeWebDriver();
+            driverManager.getWebDriver().manage().window().maximize();
         });
 
         After(() -> {
@@ -29,8 +30,12 @@ public class HookSteps implements En {
         });
 
         AfterStep((Scenario scenario) -> {
-            byte[] screenshot = ((TakesScreenshot) driverManager.getWebDriver()).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png", "attachment-"+ LocalTime.now().toSecondOfDay());
+            try {
+                byte[] screenshot = ((TakesScreenshot) driverManager.getWebDriver()).getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "attachment-"+ LocalTime.now().toSecondOfDay());
+            } catch (Exception e) {
+                ReportLogger.INSTANCE.logMessage("Unable to capture screenshots.");
+            }
             ReportLogger.INSTANCE.getLogs().forEach(scenario::log);
         });
 

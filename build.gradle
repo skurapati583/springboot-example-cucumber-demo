@@ -65,7 +65,6 @@ dependencies {
 
     testImplementation "com.trivago.rta:cluecumber-core:$cluecucumberVersion"
 
-    testImplementation 'ru.yandex.qatools.ashot:ashot:1.5.4'
 }
 
 test {

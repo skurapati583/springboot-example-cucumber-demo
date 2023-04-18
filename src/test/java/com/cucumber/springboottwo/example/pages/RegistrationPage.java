@@ -4,10 +4,21 @@ import com.cucumber.springboottwo.example.library.Assertions;
 import com.cucumber.springboottwo.example.library.ElementActions;
 import com.cucumber.springboottwo.example.library.ReportLogger;
 import com.cucumber.springboottwo.example.model.Locators;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
+import org.openqa.selenium.remote.HttpCommandExecutor;
+import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.support.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @Component
 @Slf4j
@@ -55,6 +66,7 @@ public class RegistrationPage {
     }
 
     public void completeRegistration() {
+        bypassCaptchaCheckbox();
         elementActions.clickButton(
                 locators.getRegistrationPageRegisterBtn()
         );
@@ -67,6 +79,17 @@ public class RegistrationPage {
         );
         Color expectedColor = Color.fromString("#28a745");
         Assertions.checkEqual(expectedColor, actualColor);
+    }
+
+    public void bypassCaptchaCheckbox() {
+
+        elementActions.switchIFrameByLocator(
+                locators.getRegistrationPageCaptchaIframeTotal()
+        );
+        elementActions.clickButton(
+                locators.getRegistrationPageCaptchaIframeCheckbox()
+        );
+        elementActions.switchToDefault();
     }
 
 

@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.HttpCommandExecutor;
 import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,5 +95,14 @@ public class ElementActions {
     public Color getBackgroundColorOfElement(String locator) {
         WebElement element = getElementFromObjectRepository(locator);
         return Color.fromString(element.getCssValue("background-color"));
+    }
+
+    public void switchIFrameByLocator(String locator) {
+        WebElement iframeElement = getElementFromObjectRepository(locator);
+        driverManager.getWebDriver().switchTo().frame(iframeElement);
+    }
+
+    public void switchToDefault() {
+        driverManager.getWebDriver().switchTo().defaultContent();
     }
 }

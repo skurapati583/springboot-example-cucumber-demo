@@ -59,4 +59,10 @@ public class Locators {
     @Value("${phptravels.registration_page.register.button}")
     private String registrationPageRegisterBtn;
 
+    @Value("${phptravels.registration_page.captcha.iframe}")
+    private String registrationPageCaptchaIframeTotal;
+
+    @Value("${phptravels.registration_page.captcha.iframe.checkbox}")
+    private String registrationPageCaptchaIframeCheckbox;
+
 }

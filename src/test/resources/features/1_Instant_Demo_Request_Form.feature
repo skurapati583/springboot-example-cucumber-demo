@@ -1,9 +1,8 @@
-Feature: Instant Demo Request Form2
+Feature: Instant Demo Request Form
 
   Background:
     Given User launches PHP Travels website
 
-  @ignore
   Scenario: Submit Form - Positive
     Given User sees Instant Demo Request Form
     When User fills Instant Demo Request Form

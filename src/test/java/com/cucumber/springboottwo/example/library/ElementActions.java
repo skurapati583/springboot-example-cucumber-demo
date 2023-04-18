@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -81,5 +82,17 @@ public class ElementActions {
         Alert alert = driverManager.getWebDriverWait().until(ExpectedConditions.alertIsPresent());
         alert.dismiss();
         ReportLogger.INSTANCE.logMessage("Alert Closed");
+    }
+
+    public void switchTab() {
+        var driver = driverManager.getWebDriver();
+        var currentTab = driver.getWindowHandle();
+        var newTab = driver.getWindowHandles().stream().filter(t -> !t.equals(currentTab)).findFirst().get();
+        driver.switchTo().window(newTab);
+    }
+
+    public Color getBackgroundColorOfElement(String locator) {
+        WebElement element = getElementFromObjectRepository(locator);
+        return Color.fromString(element.getCssValue("background-color"));
     }
 }

@@ -38,5 +38,25 @@ public class Locators {
     @Value("${phptravels.homepage.instant_demo_request_form.thank_you.success_message_description}")
     private String thankYouPageSuccessDescription;
 
+    @Value("${phptravels.homepage.header.sign_up.button}")
+    private String signUpBtn;
+
+    @Value("${phptravels.registration_page.generic_input_field}")
+    private String registrationPageGenericInputTextBox;
+
+    @Value("${phptravels.registration_page.additional_info.mobile.input_field}")
+    private String registrationPageAddInfoMobileField;
+
+    @Value("${phptravels.registration_page.security.generate_password.button}")
+    private String registrationPageGeneratePasswordBtn;
+
+    @Value("${phptravels.registration_page.security.modal.copy_password.button}")
+    private String registrationPageSecurityModelCopyPasswordBtn;
+
+    @Value("${phptravels.registration_page.security.password_strength_meter}")
+    private String registrationPageSecurityPasswordStrengthMeter;
+
+    @Value("${phptravels.registration_page.register.button}")
+    private String registrationPageRegisterBtn;
 
 }

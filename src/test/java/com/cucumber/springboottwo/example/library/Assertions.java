@@ -12,4 +12,8 @@ public class Assertions {
         assertThat(condition).isTrue();
     }
 
+    public static void checkEqual(Object expected, Object actual) {
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.cucumber.springboottwo.example.steps;
 
 import com.cucumber.springboottwo.example.pages.InstantDemoRequestForm;
+import com.cucumber.springboottwo.example.pages.RegistrationPage;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java8.En;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ public class StepDefs implements En {
 
     @Autowired
     InstantDemoRequestForm instantDemoRequestForm;
+
+    @Autowired
+    RegistrationPage registrationPage;
 
     public StepDefs() {
 
@@ -49,6 +53,39 @@ public class StepDefs implements En {
         When("User closes the alert", () -> {
             instantDemoRequestForm.closeAlert();
         });
+
+        When("User chooses for Sign Up", () -> {
+           instantDemoRequestForm.chooseSignUp();
+        });
+
+        Then("User sees Registration form launched in a separate tab", () -> {
+           instantDemoRequestForm.switchToRegistrationTab();
+        });
+
+        When("User enters Personal Information", (DataTable info) -> {
+            info.asMap().forEach((key, value) -> registrationPage.enterPersonalInfo(key, value));
+        });
+
+        When("User enters Billing Address", (DataTable info) -> {
+            info.asMap().forEach((key, value) -> registrationPage.enterBillingAddress(key, value));
+        });
+
+        When("User enters Additional Information", (DataTable info) -> {
+            info.asMap().forEach((key, value) -> registrationPage.enterAdditionalRequiredInfo(key, value));
+        });
+
+        When("User chooses for automatic password generation", () -> {
+           registrationPage.enterPasswordAutomatically();
+        });
+
+        Then("User sees password strength meter is green", () -> {
+           registrationPage.verifyPasswordStrengthMeterColor();
+        });
+
+        When("User submits the registration form", () -> {
+           registrationPage.completeRegistration();
+        });
+
 
     }
 }

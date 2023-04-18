@@ -99,4 +99,12 @@ public class InstantDemoRequestForm {
     public void closeAlert() {
         elementActions.closeAlert();
     }
+
+    public void chooseSignUp() {
+        elementActions.clickButton(locators.getSignUpBtn());
+    }
+
+    public void switchToRegistrationTab() {
+        elementActions.switchTab();
+    }
 }

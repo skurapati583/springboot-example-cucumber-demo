@@ -4,6 +4,7 @@ Feature: PHP Travels - Registration Form
   Background:
     Given User launches PHP Travels website
 
+  @Positive
   Scenario: Registration Form - Positive
     When User chooses for Sign Up
     Then User sees Registration form launched in a separate tab

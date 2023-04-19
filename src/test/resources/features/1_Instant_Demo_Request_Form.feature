@@ -4,6 +4,7 @@ Feature: Instant Demo Request Form
   Background:
     Given User launches PHP Travels website
 
+  @Positive
   Scenario: Submit Form - Positive
     Given User sees Instant Demo Request Form
     When User fills Instant Demo Request Form
@@ -15,6 +16,7 @@ Feature: Instant Demo Request Form
     And User submits form
     Then User sees Thank You message of form acknowledgement
 
+  @Negative
   Scenario: Submit Form - Negative
     Given User sees Instant Demo Request Form
     When User submits form

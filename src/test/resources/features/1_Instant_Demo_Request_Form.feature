@@ -1,3 +1,4 @@
+@InstantDemoRequest
 Feature: Instant Demo Request Form
 
   Background:
